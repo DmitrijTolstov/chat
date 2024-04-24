@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,400..700&display=swap');
 
-
+:root{
+    --text: #FFF;
+    --main-black: #181A1C;
+    --secondary-black: #1C1E1F;
+}
 
 /* Reset and base styles  */
 * {
@@ -19,6 +23,8 @@ body{
   font-family: "Lora", serif;
   font-optical-sizing: auto;
   font-style: italic;
+  color: var(--text);
+  background-color: var(--main-black);
 }
 
 /* Links */
@@ -53,6 +59,10 @@ img {
 img, svg {
 	max-width: 100%;
 	height: auto;
+}
+
+svg {
+    cursor: pointer;
 }
 
 
