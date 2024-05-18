@@ -31,6 +31,7 @@ body{
 
 a, a:link, a:visited  {
     text-decoration: none;
+    color: inherit;
 }
 
 a:hover  {
@@ -57,8 +58,9 @@ img {
 }
 
 img, svg {
-	max-width: 100%;
-	height: auto;
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
 }
 
 svg {
@@ -95,8 +97,4 @@ button:focus, button:active {
 button::-moz-focus-inner {
 	padding: 0;
 	border: 0;
-}
-
-label {
-	cursor: pointer;
 }
