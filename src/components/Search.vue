@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { users } from '@/stores/store';
+import { users } from '@/stores/people';
 
 import { ref } from 'vue'
 
