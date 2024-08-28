@@ -1,77 +1,35 @@
+import axios from 'axios'
 import { defineStore } from 'pinia'
 
 export const users = defineStore('users',{
 
     state:() =>(
         {
-            filteredPeople:[],
-            people : [
-                {
-                    image: 'src/assets/images/avatar-friends/image1.png',
-                    name: 'Darrell Steward',
-                    text: 'Amet minim mollit non deserunt ulla...',
-                    chat: false,
-                },
-                {
-                    image: 'src/assets/images/avatar-friends/image2.png',
-                    name: 'Kathryn Murphy',
-                    text: 'Amet minim mollit non deserunt ulla...',
-                    chat: false,
-                },
-                {
-                    image: 'src/assets/images/avatar-friends/image3.png',
-                    name: 'Esther Howard',
-                    text: 'Amet minim mollit non deserunt ulla...',
-                    chat: false,
-                },
-                {
-                    image: 'src/assets/images/avatar-friends/image4.png',
-                    name: 'Kristin Watson',
-                    text: 'Amet minim mollit non deserunt ulla...',
-                    chat: false,
-                },
-                {
-                    image: 'src/assets/images/avatar-friends/image5.png',
-                    name: 'Kristin Watson',
-                    text: 'Amet minim mollit non deserunt ulla...',
-                    chat: false,
-                },
-                {
-                    image: 'src/assets/images/avatar-friends/image6.png',
-                    name: 'Esther Howard',
-                    text: 'Amet minim mollit non deserunt ulla...',
-                    chat: false,
-                },
-                {
-                    image: 'src/assets/images/avatar-friends/image7.png',
-                    name: 'Cody Fisher',
-                    text: 'Amet minim mollit non deserunt ulla...',
-                    chat: false,
-                },
-                {
-                    image: 'src/assets/images/avatar-friends/image7.png',
-                    name: 'Cody Fisher',
-                    text: 'Amet minim mollit non deserunt ulla...',
-                    chat: false,
-                },
-            ],
+            people : null
         }
 
     ),
 
     getters:{
+        getUserState(state){
+            return state.people
+        },
     },
 
     actions:{
-        search(str: string): void {
-            const filtered = this.people.filter(people =>people.name.toLowerCase().includes(str) )
-
-            this.filteredPeople = filtered
-        },
+        async fetchUsers() {
+        try {
+          const data = await axios.get('http://localhost:4000/auth')
+            this.people = data.data
+          }
+          catch (error) {
+            alert(error)
+            console.log(error)
+        }
+      }
       
     }
 
 })
-// 
 
 

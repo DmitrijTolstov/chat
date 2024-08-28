@@ -4,16 +4,18 @@ import { reactive, computed } from 'vue'
 
 import { useRouter } from 'vue-router'
 
+import axios from 'axios'
+
+
 
 const router = useRouter()
 
-
-
 type Forms = {
-    avatar: string,
+    avatar: null,
     firstName: string,
     lastName: string
     phone: string,
+    _id: null
 }
 
 
@@ -21,7 +23,8 @@ const form: Forms = reactive({
     firstName: '',
     lastName: '',
     phone: '',
-    avatar: '',
+    avatar: null,
+    _id: null
 })
 
 
@@ -37,9 +40,9 @@ const isDisabled = computed(() => {
     return (form.firstName.length && form.lastName.length) > 4 && form.phone.length > 10 && form.avatar ? false : true
 })
 
-const addAvatar = ($event: any) => {
+const addAvatar = async ($event: any) => {
+    form.avatar = $event.target.files[0]
 
-    form.avatar = $event?.target?.files
 }
 
 const clearValue = () => {
@@ -49,26 +52,24 @@ const clearValue = () => {
     form.phone = ''
 }
 
-const send = (() => {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        body: JSON.stringify({
-            firstName: form.firstName,
-            lastName: form.lastName,
-            tel: form.phone,
-            avatar: form.avatar,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
 
-    clearValue()
+const send = async () => {
+    await axios.post('http://localhost:4000/auth/connect', {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        avatar: form.avatar,
+        phone: form.phone,
+        _id: Math.floor(Math.random() * 100)
+    })
+        .then(res => {
+            console.log("connect auth", res);
+
+            clearValue()
+        })
 
     router.push('/chat')
-})
+
+}
 
 
 </script>
@@ -131,6 +132,17 @@ const send = (() => {
         font-weight: bold;
         cursor: pointer;
         transition: transform .2s ease-out;
+    }
+
+    button {
+        width: 150px;
+        padding: 5px;
+        border-radius: 15px;
+    }
+
+    button:not(:disabled) {
+        transition: background 2s linear;
+        background: linear-gradient(40deg, #ff6ec4, #7873f5);
     }
 }
 
