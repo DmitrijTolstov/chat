@@ -6,6 +6,7 @@ const cors = require('cors');
 const mongoose = require('mongoose')
 const config = require('./db')
 const messageRoute = require('./router/message.router');
+const authRouter = require('./router/auth.router');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB).then(
@@ -19,6 +20,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use('/chat', messageRoute)
+app.use('/auth', authRouter)
+app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, function(){
   console.log('Server is running on Port:',PORT);
