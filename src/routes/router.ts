@@ -5,8 +5,9 @@ import MainPage from '@/components/MainPage.vue'
 
 
 const routes = [
-  // { path: '', component: Authorization },
-  { path: '/', component: MainPage },
+  // { path: '/', component: Authorization },
+  // { path: '/chat', component: MainPage },
+  { path: '', component: MainPage },
 ]
 
 export const router = createRouter({
